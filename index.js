@@ -46,7 +46,7 @@ app.post("/paynow", [parseUrl, parseJson], (req, res) => {
     params["CUST_ID"] = paymentDetails.customerId;
     params["TXN_AMOUNT"] = paymentDetails.amount;
     /* where is app is hosted (heroku url)*/
-    params["CALLBACK_URL"] = "https://poke-us.herokuapp.com/viewOrders";
+    params["CALLBACK_URL"] = "http://localhost:4100/callback";
     params["EMAIL"] = paymentDetails.customerEmail;
     params["MOBILE_NO"] = paymentDetails.customerPhone;
 
@@ -140,7 +140,7 @@ app.post("/callback", (req, res) => {
             var _results = JSON.parse(response);
             /* where it will come back after payment*/
             res.redirect(
-              `http://localhost:4100/viewBooking?status=${_results.STATUS}&ORDERID=${_results.ORDERID}&date=${_results.TXNDATE}&bank=${_results.BANKNAME}`
+              `http://localhost:4100/viewOrders?status=${_results.STATUS}&ORDERID=${_results.ORDERID}&date=${_results.TXNDATE}&bank=${_results.BANKNAME}`
             );
           });
         });
